@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/resources :: headTags}"></th:block>
+    <title>Pizza</title>
+
+</head>
+<body>
+
+    <header>
+        <th:block th:replace="~{fragments/fragment :: navbar}"></th:block>
+    </header>
+
+    <main>
+        <div class="container">
+            <section>
+            <h1>Dettagli pizzetta</h1>
+            <div class="row">
+                <div class="col-12" th:object="${ingredient}">
+                    <p th:text="*{name}"></p>
+                    
+                </div>
+            </div>
+            </section>
+
+
+             <section class="row mb-3 pizzas" >
+                <div class="col-12" th:if="${ingredient.pizzas.size() >0 }">
+                    <table class="table table-striped">
+                    <thead>
+                    <tr>
+                    <th scope="col">name</th>
+                    <th scope="col">description</th>
+                    <th scope="col">url</th>
+                    <th scope="col">price</th>
+                    <th scope="col"></th>
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="pizza : ${ingredient.pizzas}" th:object="${pizza}">
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{description}"></td>
+                    <td th:text="*{url}"></td>
+                    <td th:text="*{price}"></td>
+                    <td >
+                        <a th:href="@{/pizzas/edit/{id}(id=*{id})}" class="btn btn-info btn-sm">Edit</a>
+                    </td>
+                                                 
+                    
+
+                   
+                  
+                    </tbody>
+                    </table>
+                </div>
+                <div th:unless="${ingredient.pizzas.size() >0  }">
+
+                    <p>Non ci sono pizze per questo ingrediente </p>
+
+                </div>
+            </section>
+
+           
+           
+               
+        </div>
+
+        
+
+    </main>
+    <th:block th:replace="~{fragments/resources :: scripts}"></th:block>
+</body>
+</html>

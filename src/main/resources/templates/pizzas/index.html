@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/resources :: headTags}"></th:block>
+    <title>Pizzas</title>   
+</head>
+<body>
+    <header>
+        <th:block th:replace="~{fragments/fragment :: navbar}"></th:block>
+    </header>
+    
+    
+
+    <main>
+        <div class="container">
+
+            <h1 class="py-4 text-center">Lista delle pizze</h1>
+
+            <div>
+                <form th:action="@{/pizzas/searchByName}" method="get"
+                    class="d-flex" role="search">
+                    <input name="name" class="form-control me-2" type="search"  placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+
+            <div class="col-12 d-flex flex-row-reverse py-3">
+                <a class="btn btn-primary" th:href="@{/pizzas/create}">Add new pizza</a>
+            </div>
+                
+
+
+
+            <div class="col-12" th:if="${pizzas.size() > 0}">
+
+                
+                   
+                  <table class="table table-striped">
+                <thead>
+                    <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Price</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr th:each="pizza : ${pizzas}" th:object="${pizza}">
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{description}"></td>
+                    <td th:text="*{url}"></td>
+                    <td th:text="*{price}"></td>
+                    <td> <a th:href="@{/pizzas/offers/{id}(id= *{id})}" class="btn btn-info">NewOffer</a></td> 
+                    <td> <a th:href="@{/pizzas/{id}(id= *{id})}" class="btn btn-primary">Dettagli</a></td> 
+                    <td> <a th:href="@{/pizzas/edit/{id}(id= *{id})}" class="btn btn-primary">Edit</a></td>
+                    <td>
+                        <!-- Button trigger modal con ID dinamico -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
+                                th:data-bs-target="|#deleteModal${pizza.id}|">
+                            Delete
+                        </button>
+
+                        <!-- Modal con ID dinamico -->
+                        <div class="modal fade" th:id="|deleteModal${pizza.id}|" tabindex="-1" 
+                            aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">Conferma delete</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you really sure to delete <strong th:text="*{name}"></strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <form th:action="@{/pizzas/delete/{id}(id=*{id})}" method="post">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    </tr>
+                  
+                </tbody>
+
+
+               
+            
+
+            </table>
+            </div>
+
+            <div class="col-12" th:unless="${pizzas.size() > 0}" th:text="Non ci sono pizze disponibili al momento..."></div>
+
+          
+
+        </div>
+        
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <th:block th:replace="~{fragments/resources :: scripts}"></th:block>
+</body>
+</html>

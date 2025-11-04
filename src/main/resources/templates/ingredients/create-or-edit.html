@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/resources :: headTags}"></th:block>
+    <title>Ingredients</title>   
+</head>
+<body>
+    <header>
+        <th:block th:replace="~{fragments/fragment :: navbar}"></th:block>
+    </header>
+    
+    
+
+    <main>
+       
+        <div class="container">
+
+            <h1 th:text="${edit} ? |Editig Ingredient ${ingredient.id}| : |Creating new Ingredient|   "></h1>
+            <div class="row">
+                <div class="col-12" >
+                    <form id="offer-form" th:object="${ingredient}" th:action="${edit} ? @{/ingredients/edit/{id}(id = ${ingredient.id})} : @{/ingredients/create}" method="post">
+
+                        <input type="hidden" th:field="*{pizzas}" id="linked-pizzas">
+
+                    <div class="mb-3">                        
+                        <label for="ingredient-name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="ingredient-name"  th:field="*{name}" th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                            <ul>
+                            <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                        </ul>
+                        </div>                        
+                    </div>       
+
+                    <div class="mb-3 d-flex flex-row-reverse">                        
+                        <button type="submit" class="btn btn-primary ms-3">Submit</button>
+                        <button type="reset" class="btn btn-primary">Reset</button>                      
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <th:block th:replace="~{fragments/resources :: scripts}"></th:block>
+</body>
+</html>

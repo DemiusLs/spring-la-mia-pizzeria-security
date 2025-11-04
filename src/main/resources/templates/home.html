@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    
+    <th:block th:replace="~{fragments/resources :: headTags}" ></th:block>
+    <title>Document</title>
+
+</head>
+<body>
+
+    <header>
+        <th:block th:replace="~{fragments/fragment :: navbar}"></th:block>
+    </header>
+    
+    <main>
+        <div class="container">
+            <h1> Benvenuti nella pizzeria Dedos</h1>
+        </div>
+        
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <th:block th:replace="~{fragments/resources :: scripts}" ></th:block>
+
+</body>
+</html>
