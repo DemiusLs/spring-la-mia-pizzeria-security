@@ -40,9 +40,11 @@ public class IngredientService {
     }
 
     public void delete(Ingredient ingredient){
-        for(Pizza pizzaToDelete : ingredient.getPizzas()){
-            pizzaRepo.delete(pizzaToDelete);
+        for(Pizza pizza : ingredient.getPizzas()){
+            pizza.getIngredients().remove(ingredient);
+            pizzaRepo.save(pizza);
         }
+        ingredientRepo.delete(ingredient);
     }
 
     public void deleteById(Integer id){

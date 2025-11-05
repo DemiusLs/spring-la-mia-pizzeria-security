@@ -18,13 +18,14 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
         http.authorizeHttpRequests(requests ->requests
-        .requestMatchers("/pizzas/create" , "/pizza/edit/**").hasAuthority("ADMIN")
-        .requestMatchers(HttpMethod.POST , "/pizza/**").hasAuthority("ADMIN")       
-        .requestMatchers("/ingredients" , "/pizza/edit/**").hasAuthority("ADMIN")
-        .requestMatchers("/pizzas/index" , "/pizza/**").hasAnyAuthority("USER", "ADMIN")
+        .requestMatchers("/pizzas/create" , "/pizzas/edit/**").hasAuthority("ADMIN")
+        .requestMatchers(HttpMethod.POST , "/pizzas/**").hasAuthority("ADMIN")               
+        .requestMatchers("/ingredients" , "/pizzas/edit/**").hasAuthority("ADMIN")
+        .requestMatchers("/pizzas/offers/**" , "/offers/**").hasAuthority("ADMIN")
+        .requestMatchers("/pizzas/index" , "/pizzas/**").hasAnyAuthority("USER", "ADMIN")
         .requestMatchers("/**").permitAll()
         ).formLogin(Customizer.withDefaults())
-        .logout(logout -> logout.logoutSuccessUrl("/login?logout"));
+        .logout(logout -> logout.logoutSuccessUrl("/login"));
         // .cors(cors -> cors.disable())
         // .csrf(csrf -> csrf.disable());
     
@@ -52,4 +53,6 @@ public class SecurityConfiguration {
 
         return authProvider;
     }
+
+
 }

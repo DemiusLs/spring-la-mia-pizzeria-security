@@ -66,6 +66,7 @@ public class IngredientController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id,  Model model ){
         model.addAttribute("ingredient", ingredientService.getById(id));
+        model.addAttribute("edit", true);
         return "/ingredients/create-or-edit";
     }
 

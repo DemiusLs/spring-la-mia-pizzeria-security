@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.lesson.java.spring.spring_la_mia_pizzeria_crud.model.Offer;
 import org.lesson.java.spring.spring_la_mia_pizzeria_crud.model.Pizza;
-import org.lesson.java.spring.spring_la_mia_pizzeria_crud.repository.IngredientRepository;
 import org.lesson.java.spring.spring_la_mia_pizzeria_crud.repository.OfferRepository;
 import org.lesson.java.spring.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ public class PizzaService {
 
     @Autowired
     private PizzaRepository pizzaRepo;
-    @Autowired
-    private IngredientRepository  ingredientRepo;
     @Autowired
     private OfferRepository offerRepo;
 
